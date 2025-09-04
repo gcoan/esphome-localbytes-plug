@@ -82,6 +82,7 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
     name: "Button"
+    id: button
     on_click:
       - max_length: 1s
         then:
@@ -102,6 +103,7 @@ binary_sensor:
           switch.toggle: disable_button
 
   - platform: status
+    id: status
     name: "Server Status"
 
 switch:
@@ -226,6 +228,7 @@ sensor:
   # WiFi Signal Sensor
   - platform: wifi_signal
     name: "WiFi Status"
+    id: wifi_signal
     update_interval: 60s
 
   # Power Monitoring
@@ -265,6 +268,7 @@ sensor:
   # Total daily energy sensor
   - platform: total_daily_energy
     name: "Daily Energy"
+    id: daily_energy
     device_class: energy
     power_id: power
     restore: false
@@ -336,5 +340,7 @@ light:
 button:
   - platform: restart
     name: "Restart"
+    id: restart
   - platform: factory_reset
     name: "Restart with Factory Default Settings"
+    id: factory_reset
