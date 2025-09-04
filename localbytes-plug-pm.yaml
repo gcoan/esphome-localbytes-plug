@@ -247,7 +247,7 @@ sensor:
       unit_of_measurement: V
       accuracy_decimals: 1
       filters:
-        - lambda: return x * id(voltage_multiply);
+        - lambda: return round(x * id(voltage_multiply),1);
 
     power:
       name: "Power"
@@ -255,7 +255,7 @@ sensor:
       unit_of_measurement: W
       accuracy_decimals: 0
       filters:
-        - lambda: return x * id(power_multiply);
+        - lambda: return round(x * id(power_multiply),0);
 
     current:
       name: "Current"
@@ -263,7 +263,7 @@ sensor:
       unit_of_measurement: A
       accuracy_decimals: 3
       filters:
-        - lambda: return x * id(current_multiply);
+        - lambda: return round(x * id(current_multiply),3);
 
   # Total daily energy sensor
   - platform: total_daily_energy
@@ -272,10 +272,12 @@ sensor:
     device_class: energy
     power_id: power
     restore: false
+    accuracy_decimals: 3
+    unit_of_measurement: kWh
     filters:
       # Multiplication factor from W to kW is 0.001
-      - multiply: 0.001
-    unit_of_measurement: kWh
+      - lambda: return round(x * 0.001, 3)
+    
 
 # Make calibration factor data readable/set-able from home assistant
 number:
@@ -341,6 +343,7 @@ button:
   - platform: restart
     name: "Restart"
     id: restart
+
   - platform: factory_reset
     name: "Restart with Factory Default Settings"
     id: factory_reset
