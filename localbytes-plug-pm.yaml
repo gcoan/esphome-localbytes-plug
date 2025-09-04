@@ -279,7 +279,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       # Multiplication factor from W to kW is 0.001
-      - lambda: return round(x * 0.001, 3)
+      - lambda: return round(x * 0.001,3);
     
 
 # Make calibration factor data readable/set-able from home assistant
