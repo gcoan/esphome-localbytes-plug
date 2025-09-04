@@ -232,7 +232,7 @@ sensor:
     update_interval: 60s
     accuracy_decimals: 0
     filters:
-      - lambda: return round(x, 0);
+      - round: 0
 
   # Power Monitoring
   - platform: hlw8012
@@ -250,7 +250,8 @@ sensor:
       unit_of_measurement: V
       accuracy_decimals: 1
       filters:
-        - lambda: return round(x * id(voltage_multiply),1);
+        - lambda: return x * id(voltage_multiply);
+        - round: 1
 
     power:
       name: "Power"
@@ -258,7 +259,8 @@ sensor:
       unit_of_measurement: W
       accuracy_decimals: 0
       filters:
-        - lambda: return round(x * id(power_multiply),0);
+        - lambda: return x * id(power_multiply);
+        - round: 0
 
     current:
       name: "Current"
@@ -266,7 +268,8 @@ sensor:
       unit_of_measurement: A
       accuracy_decimals: 1
       filters:
-        - lambda: return round(x * id(current_multiply),1);
+        - lambda: return x * id(current_multiply);
+        - round: 1
 
   # Total daily energy sensor
   - platform: total_daily_energy
@@ -279,8 +282,8 @@ sensor:
     accuracy_decimals: 3
     filters:
       # Multiplication factor from W to kW is 0.001
-      - lambda: return round(x * 0.001,3);
-    
+      - lambda: return x * 0.001;
+      - round: 3
 
 # Make calibration factor data readable/set-able from home assistant
 number:
