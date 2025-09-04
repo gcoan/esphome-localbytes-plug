@@ -261,9 +261,9 @@ sensor:
       name: "Current"
       id: current
       unit_of_measurement: A
-      accuracy_decimals: 3
+      accuracy_decimals: 1
       filters:
-        - lambda: return round(x * id(current_multiply),3);
+        - lambda: return round(x * id(current_multiply),1);
 
   # Total daily energy sensor
   - platform: total_daily_energy
