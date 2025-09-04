@@ -230,6 +230,9 @@ sensor:
     name: "WiFi Status"
     id: wifi_signal
     update_interval: 60s
+    accuracy_decimals: 0
+    filters:
+      - lambda: return round(x, 0);
 
   # Power Monitoring
   - platform: hlw8012
@@ -272,8 +275,8 @@ sensor:
     device_class: energy
     power_id: power
     restore: false
-    accuracy_decimals: 3
     unit_of_measurement: kWh
+    accuracy_decimals: 3
     filters:
       # Multiplication factor from W to kW is 0.001
       - lambda: return round(x * 0.001, 3)
