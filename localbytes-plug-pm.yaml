@@ -252,6 +252,23 @@ sensor:
       filters:
         - lambda: return round(x * id(voltage_multiply) * 10)/10;
 
+    voltage:
+      name: "Voltage Round Filter"
+      id: voltage_round_filter
+      unit_of_measurement: V
+      accuracy_decimals: 1
+      filters:
+        - lambda: return x * id(voltage_multiply);
+        - round: 1
+
+    voltage:
+      name: "Voltage Round Zero"
+      id: voltage_round_zero
+      unit_of_measurement: V
+      accuracy_decimals: 1
+      filters:
+        - lambda: return round(x * id(voltage_multiply));
+
     power:
       name: "Power"
       id: power
@@ -280,6 +297,33 @@ sensor:
     filters:
       # Multiplication factor from W to kW is 0.001
       - lambda: return round(x) * 0.001;
+
+# Total daily energy sensor
+  - platform: total_daily_energy_round_filter
+    name: "Daily Energy Round Filter"
+    id: daily_energy_filter
+    device_class: energy
+    power_id: power
+    restore: false
+    unit_of_measurement: kWh
+    accuracy_decimals: 3
+    filters:
+      # Multiplication factor from W to kW is 0.001
+      - lambda: return x * 0.001;
+      - round: 3
+
+# Total daily energy sensor
+  - platform: total_daily_energy_no_round
+    name: "Daily Energy no round"
+    id: daily_energy_no_round
+    device_class: energy
+    power_id: power
+    restore: false
+    unit_of_measurement: kWh
+    accuracy_decimals: 3
+    filters:
+      # Multiplication factor from W to kW is 0.001
+      - lambda: return x * 0.001;
 
 # Make calibration factor data readable/set-able from home assistant
 number:
